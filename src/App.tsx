@@ -1,7 +1,7 @@
-import RickAndMorty from "../components/RickAndMorty.tsx";
+import HarryPotter from "../components/HarryPotter.tsx";
 import styled from "styled-components";
 import {useEffect, useState} from "react";
-import type {Character} from "../interfaces/Characters.ts";
+import type {Wizard} from "../interfaces/Wizards.ts";
 
 const ParentDiv=styled.div`
     width: 80vw;
@@ -12,14 +12,14 @@ const ParentDiv=styled.div`
 export default function App() {
 
     // useState Hook to store Data.
-    const [data, setData] = useState<Character[]>([]);
+    const [data, setData] = useState<Wizard[]>([]);
 
     // useEffect Hook for error handling and re-rendering.
     useEffect(() => {
         async function fetchData(): Promise<void> {
-            const rawData = await fetch("https://rickandmortyapi.com/api/character");
-            const {results}: { results: Character[] } = await rawData.json();
-            setData(results);
+            const rawData = await fetch("https://potterhead-api.vercel.app/api/characters");
+            const characters: Wizard[]  = await rawData.json();
+            setData(characters);
         }
 
         fetchData()
@@ -29,7 +29,7 @@ export default function App() {
 
     return (
         <ParentDiv>
-            <RickAndMorty data={data}/>
+            <HarryPotter data={data}/>
         </ParentDiv>
     )
 }
